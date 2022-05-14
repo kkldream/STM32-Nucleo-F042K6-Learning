@@ -127,50 +127,64 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1) {
-	if (debug_rx_flag == true) {
-		debug_rx_flag = false;
-		int var = atoi((char*)debug_rxData);
-		printf("[send] %d\n", var);
-		for(uint8_t i = 0; i < 16; i++) data[i] = var;
-		sbus_data[0] = 0xf0;
-		sbus_data[1] = data[0] >> 3;
-		sbus_data[2] = (data[0] << 5) | (data[1] >> 6);
-		sbus_data[3] = (data[1] << 2) | (data[2] >> 9);
-		sbus_data[4] = data[2] >> 1;
-		sbus_data[5] = (data[2] << 7) | (data[3] >> 4);
-		sbus_data[6] = (data[3] << 4) | (data[4] >> 7);
-		sbus_data[7] = (data[4] << 1) | (data[5] >> 10);
-		sbus_data[8] = data[5] >> 2;
-		sbus_data[9] = (data[5] << 6) | (data[6] >> 5);
-		sbus_data[10] = (data[6] << 3) | (data[7] >> 8);
-		sbus_data[11] = data[7];
-		sbus_data[12] = data[8] >> 3;
-		sbus_data[13] = (data[8] << 5) | (data[9] >> 6);
-		sbus_data[14] = (data[9] << 2) | (data[10] >> 9);
-		sbus_data[15] = data[10] >> 1;
-		sbus_data[16] = (data[10] << 7) | (data[11] >> 4);
-		sbus_data[17] = (data[11] << 4) | (data[12] >> 7);
-		sbus_data[18] = (data[12] << 1) | (data[13] >> 10);
-		sbus_data[19] = data[13] >> 2;
-		sbus_data[20] = (data[13] << 6) | (data[14] >> 5);
-		sbus_data[21] = (data[14] << 3) | (data[15] >> 8);
-		sbus_data[22] = data[15];
-		sbus_data[23] = 0x00;
-		sbus_data[24] = 0x00;
-		HAL_UART_Transmit(&huart1, (uint8_t*)sbus_data, 25, 0xffff);
-	}
-
 //	if (debug_rx_flag == true) {
 //		debug_rx_flag = false;
+//		int var = atoi((char*)debug_rxData);
+//		printf("[send] %d\n", var);
+//		for(uint8_t i = 0; i < 16; i++) data[i] = var;
+//		sbus_data[0] = 0xf0;
+//		sbus_data[1] =  data[0] & 0x00ff;
+//		sbus_data[2] = ((data[0] >> 8) & 0x07) | (data[1] << 3);
+//		sbus_data[3] = ((data[1] >> 5) & 0x3f) | (data[2] << 6);
+//		sbus_data[4] = ((data[2] >> 2) & 0xff);
+//		sbus_data[5] = ((data[2] >> 10) & 0x01) | (data[3] << 1);
+//		sbus_data[6] = ((data[3] >> 7) & 0x0f) | (data[4] << 4);
+//		sbus_data[7] = ((data[4] >> 4) & 0x7f) | (data[5] << 7);
+//		sbus_data[8] = ((data[5] >> 1) & 0xff);
+//		sbus_data[9] = ((data[5] >> 9) & 0x03);
+////		sbus_data[1] = data[0] >> 3;
+////		sbus_data[2] = (data[0] << 5) | (data[1] >> 6);
+////		sbus_data[3] = (data[1] << 2) | (data[2] >> 9);
+////		sbus_data[4] = data[2] >> 1;
+////		sbus_data[5] = (data[2] << 7) | (data[3] >> 4);
+////		sbus_data[6] = (data[3] << 4) | (data[4] >> 7);
+////		sbus_data[7] = (data[4] << 1) | (data[5] >> 10);
+////		sbus_data[8] = data[5] >> 2;
+////		sbus_data[9] = (data[5] << 6) | (data[6] >> 5);
+//		sbus_data[10] = (data[6] << 3) | (data[7] >> 8);
+//		sbus_data[11] = data[7];
+//		sbus_data[12] = data[8] >> 3;
+//		sbus_data[13] = (data[8] << 5) | (data[9] >> 6);
+//		sbus_data[14] = (data[9] << 2) | (data[10] >> 9);
+//		sbus_data[15] = data[10] >> 1;
+//		sbus_data[16] = (data[10] << 7) | (data[11] >> 4);
+//		sbus_data[17] = (data[11] << 4) | (data[12] >> 7);
+//		sbus_data[18] = (data[12] << 1) | (data[13] >> 10);
+//		sbus_data[19] = data[13] >> 2;
+//		sbus_data[20] = (data[13] << 6) | (data[14] >> 5);
+//		sbus_data[21] = (data[14] << 3) | (data[15] >> 8);
+//		sbus_data[22] = data[15];
+//		sbus_data[23] = 0x00;
+//		sbus_data[24] = 0x00;
+//		HAL_UART_Transmit(&huart1, (uint8_t*)sbus_data, 25, 0xffff);
+//	}
+
+	if (debug_rx_flag == true) {
+		debug_rx_flag = false;
 //		printf("[send] %s", (char*)debug_rxData);
-//
 //		char* str[BUFFER_SIZE];
 //		sprintf((char*)str, "[from debug] %s", (char*)debug_rxData);
 //		HAL_UART_Transmit(&huart1, (uint8_t*)str, strlen((char*)str), 0xffff);
-//	}
+
+		printf("%s", debug_rxData);
+//		HAL_UART_Transmit(&huart1, (uint8_t*)str, strlen((char*)str), 0xffff);
+	}
 //	if (sbus_rx_flag == true) {
 //		sbus_rx_flag = false;
-//		printf("%s", (char*)sbus_rxData);
+////		printf("%s", (char*)sbus_rxData);
+//		printf("sbus to debug\n");
+//		char *str = "sbus to sbus\n";
+//		HAL_UART_Transmit(&huart1, (uint8_t*)str, strlen((char*)str), 0xffff);
 //	}
     /* USER CODE END WHILE */
 
@@ -246,8 +260,9 @@ static void MX_USART1_UART_Init(void)
   huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
   huart1.Init.OverSampling = UART_OVERSAMPLING_16;
   huart1.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
-  huart1.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
-  if (HAL_HalfDuplex_Init(&huart1) != HAL_OK)
+  huart1.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_DATAINVERT_INIT;
+  huart1.AdvancedInit.DataInvert = UART_ADVFEATURE_DATAINV_ENABLE;
+  if (HAL_UART_Init(&huart1) != HAL_OK)
   {
     Error_Handler();
   }
